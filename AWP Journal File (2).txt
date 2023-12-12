@@ -1,0 +1,1925 @@
+1
+Practical     1  
+
+Q1. Create a XML document for student database and apply the style sheet effects and display on 
+webpage. 
+
+<?xml version="1.0"  encoding="utf-8"  ?> 
+<?xml-stylesheet type="text/xsl"     href="style.xsl"      ?> 
+ 
+<students> 
+   
+   <student> 
+      <rollno>1</rollno> 
+      <sname>sam</sname> 
+      <course>BscIt</course> 
+      <city>Mumbai</city> 
+   </student> 
+ 
+   <student> 
+      <rollno>2</rollno> 
+      <sname>cam</sname> 
+      <course>Bcom</course> 
+      <city>Banglore</city> 
+   </student> 
+ 
+   <student> 
+      <rollno>3</rollno> 
+      <sname>tam</sname> 
+      <course>CS</course> 
+      <city>Pune</city> 
+   </student> 
+</students> 
+ 
+
+2
+                                                                                                                    
+
+Q2. Create a simple web page containing the student details (RollNo, Name, Class, Phone, Email). Write 
+a program to store the data in the database and retrieve it using Data reader in tabular format. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+using System.Data.SqlClient; 
+ 
+public  partial    class  _Default  :  System.Web.UI.Page 
+{ 
+    
+ 
+    
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  Button3_Click(object   sender,  EventArgs e) 
+      { 
+             SqlConnection con; 
+             SqlCommand cmd; 
+             SqlDataReader dr; 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\TYIT PRACTICAL\AWP PRACTICAL\Pract 
+1B\App_Data\Database.mdf;Integrated Security=True"); 
+             con.Open(); 
+
+3
+             cmd = new SqlCommand("Select * from emp", con); 
+             dr  = cmd.ExecuteReader(); 
+             GridView1.DataSource = dr; 
+             GridView1.DataBind(); 
+             dr.Read(); 
+           //    TextBox1.Text = dr[0].ToString(); 
+             //TextBox2.Text  =  dr[1].ToString(); 
+           //    DropDownList1.SelectedItem.Value = dr[1].ToString(); 
+             //TextBox3.Text  =  dr[2].ToString(); 
+             //TextBox4.Text  =  dr[3].ToString(); 
+             con.Close(); 
+ 
+      } 
+ 
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+      { 
+             SqlConnection con; 
+             SqlCommand cmd; 
+        
+ 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\TYIT PRACTICAL\AWP PRACTICAL\Pract 
+1B\App_Data\Database.mdf;Integrated Security=True"); 
+             con.Open(); 
+             cmd = new SqlCommand("Insert into emp values(@eid,@ename,@edep,@esal)", con); 
+             cmd.Parameters.AddWithValue("@ename", TextBox1.Text); 
+             cmd.Parameters.AddWithValue("@eid", TextBox2.Text); 
+             cmd.Parameters.AddWithValue("@edep", TextBox3.Text); 
+             cmd.Parameters.AddWithValue("@esal", TextBox4.Text); 
+             cmd.ExecuteNonQuery(); 
+       
+             Label1.Text  = "record  added sussessfully"; 
+       
+ 
+             con.Close(); 
+ 
+ 
+      } 
+} 
+
+4
+                                                                                                                                    
+
+ 
+
+Practical     2  
+
+Q1. Create a simple web page with various sever controls to demonstrate setting and use of their 
+properties. (Example : AutoPostBack) i.) On click of a button control display the selected items from the 
+listbox in a textbox. Also in the same webpage display the name of the selected item from the 
+DropDownList1 in a label. Also change the font size of the same label according to the font size selected 
+from the Dropdownlist2. ii.) Display Image control for photo. iii) Check Boxes provides special formatting 
+(viz. underline, bold, italic) and Radio Buttons provides color for label. iv) Use of AutoPostBack property. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public  partial    class  index  :  System.Web.UI.Page 
+{ 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  RadioButton2_CheckedChanged(object sender, EventArgs e) 
+      { 
+             if   (RadioButton2.Checked == true) 
+             { 
+
+5
+                  Label1.Font.Size = 24; 
+            } 
+      } 
+ 
+      protected void RadioButton1_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if(RadioButton1.Checked==true) 
+            { 
+                  Label1.Font.Size = 20; 
+            } 
+      } 
+ 
+      protected void RadioButton3_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton3.Checked == true) 
+            { 
+                  Label1.Font.Size = 28; 
+            } 
+      } 
+ 
+      protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e) 
+      { 
+            TextBox1.Text = DropDownList1.SelectedValue; 
+      } 
+ 
+      protected void RadioButton4_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton4.Checked == true) 
+            { 
+                  Label1.Font.Name="Arial"; 
+            } 
+      } 
+ 
+      protected void RadioButton5_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton5.Checked == true) 
+            { 
+                  Label1.Font.Name = "Fantasy"; 
+            } 
+      } 
+ 
+      protected void RadioButton6_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton6.Checked == true) 
+            { 
+                  Label1.Font.Name = "Serif"; 
+            } 
+      } 
+ 
+      protected void RadioButton7_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton7.Checked == true) 
+            { 
+                  Label1.ForeColor = System.Drawing.Color.Red; 
+            } 
+      } 
+ 
+      protected void RadioButton8_CheckedChanged(object sender, EventArgs e) 
+
+6
+      { 
+            if   (RadioButton8.Checked == true) 
+            { 
+                  Label1.ForeColor = System.Drawing.Color.Blue; 
+            } 
+      } 
+ 
+      protected void RadioButton9_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton9.Checked == true) 
+            { 
+                  Label1.ForeColor = System.Drawing.Color.Green; 
+            } 
+      } 
+} 
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                             
+
+Q2. Create a simple web page to count the number of times the current webpage is submitted to the 
+server onclick event of a Button. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public partial   class count_the__number_of_webpage_submited : System.Web.UI.Page 
+{ 
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected void Button1_Click(object sender, EventArgs e) 
+      { 
+            ViewState["x"] = Convert.ToInt32(ViewState["x"])+1; 
+            Label1.Text = ViewState["x"].ToString(); 
+ 
+            //Application["x"]    = Convert.ToInt32(Application["x"]) + 1; 
+            //Label1.Text = Application["x"].ToString(); 
+      } 
+} 
+
+7
+                                                                                                                  
+
+Practical    3 
+
+Q1. Create simple application to perform following operations i). Finding factorial Value ii). Money 
+Conversion iii). Cube of given number iv). Generate Fibonacci series 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public partial   class _Default :  System.Web.UI.Page 
+{ 
+    
+         
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected void Button1_Click(object sender, EventArgs e) 
+      { 
+            int  fact   = 1; 
+            int  input  = Convert.ToInt32(TextBox1.Text); 
+            for(int   i=1;i<=input;i++) 
+            { 
+                  fact=fact*  i; 
+            } 
+            Label1.Text = fact.ToString(); 
+      } 
+ 
+      protected void Button3_Click(object sender, EventArgs e) 
+      { 
+            int  input  = Convert.ToInt32(TextBox3.Text); 
+            int  cube = input *  input *  input; 
+            Label3.Text = cube.ToString(); 
+      } 
+ 
+      protected void Button2_Click(object sender, EventArgs e) 
+      { 
+            int  rs  = Convert.ToInt32(TextBox2.Text); 
+            int  dollar   = rs /  65; 
+            Label2.Text = dollar.ToString()+" $"; 
+      } 
+
+8
+ 
+      protected  void  Button4_Click(object   sender,  EventArgs e) 
+      { 
+             int   input   = Convert.ToInt32(TextBox4.Text); 
+             int   n1 =  0,  n2 = 1; 
+             string   result   =  "Fibonacci  Series:  "; 
+ 
+             for   (int   i   = 0;  i   < input;   i++) 
+             { 
+                    result   += n1 +  ",  "; 
+                    int   temp = n1; 
+                    n1 = n2; 
+                    n2 = temp + n2; 
+             } 
+             Label4.Text  = result; 
+      } 
+} 
+
+
+
+
+
+
+
+
+                                                                                                                                                          
+
+Q2. Demonstrate the use of Calendar control to perform following operations. a) Display messages in a 
+calendar control b) Display vacation in a calendar control c) Selected day in a calendar control using style 
+d) Difference between two calendar dates 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public  partial    class  index  :  System.Web.UI.Page 
+{ 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  Calendar1_DayRender(object sender, DayRenderEventArgs e) 
+      { 
+             if(e.Day.Date.Day==20&&e.Day.Date.Month==8) 
+         
+             { 
+                    Calendar1.SelectedDate = new DateTime(2023, 8, 21); 
+                    Calendar1.SelectedDates.SelectRange(Calendar1.SelectedDate, 
+Calendar1.SelectedDate.AddDays(5)); 
+                    Label l3   = new Label(); 
+                    l3.Text   = "<br>Special  Day"; 
+                    l3.BackColor  = System.Drawing.Color.Blue; 
+                    l3.ForeColor  =  System.Drawing.Color.Red; 
+                    e.Cell.Controls.Add(l3); 
+
+9
+             } 
+             if(e.Day.Date.Year==2023 && e.Day.Date.Month==8 && e.Day.Date.Day==15) 
+             { 
+                    Label l1   = new Label(); 
+                    l1.Text   = "<br>Indepe<br>ndence <br> Day"; 
+                    e.Cell.Controls.Add(l1); 
+             } 
+             if   (e.Day.Date.Year  == 2023 && e.Day.Date.Month == 8 && e.Day.Date.Day == 30) 
+             { 
+                    Label l1   = new Label(); 
+                    l1.Text   = "<br>Raksha<br>bandhan"; 
+                    e.Cell.Controls.Add(l1); 
+             } 
+             if(e.Day.Date.Day==29 && e.Day.Date.Month==9) 
+             { 
+                    Calendar1.SelectedDate = new DateTime(2023, 9, 29); 
+                    Calendar1.SelectedDates.SelectRange(Calendar1.SelectedDate, 
+Calendar1.SelectedDate.AddDays(5)); 
+                    Label l2   = new Label(); 
+                    l2.BackColor  = System.Drawing.Color.Red; 
+                    l2.Text   = "<br>  Ganesh Jayanti"; 
+                    l2.ForeColor  =  System.Drawing.Color.White; 
+                    e.Cell.Controls.Add(l2); 
+             } 
+      } 
+ 
+      protected  void  Calendar1_SelectionChanged(object sender, EventArgs e) 
+      { 
+             Calendar1.SelectedDayStyle.BackColor = System.Drawing.Color.Yellow; 
+             Calendar1.SelectedDayStyle.ForeColor = System.Drawing.Color.Red; 
+             Calendar1.SelectedDayStyle.BorderColor = System.Drawing.Color.Blue; 
+             Calendar1.SelectedDayStyle.Font.Size = 24; 
+ 
+      } 
+ 
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+      { 
+             TimeSpan ts = Calendar1.SelectedDate - Calendar2.SelectedDate; 
+ 
+             Label2.Text  = ts.TotalDays.ToString(); 
+ 
+      } 
+
+10
+} 
+
+Practical    4 
+
+ Q1. Create Web Form to demonstrate use of User Control. Create footer named user control having 
+copyright reserved (ex. “©company name”) and use it in a webpage. 
+
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="WebUserControl.ascx.cs" 
+Inherits="WebUserControl" %> 
+<footer> 
+      <p>“©company   
+name</p> 
+</footer> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                             
+
+11
+Q2. Create Web Form to demonstrate use of Ad rotator  Control with  five advertisements. Also 
+demonstrate how  keyword filter  works. 
+
+<?xml version="1.0"     encoding="utf-8"      ?> 
+<Advertisements> 
+   <Ad> 
+       <ImageUrl>ad1.png</ImageUrl> 
+       <NavigateUrl>https://www.britannica.com/</NavigateUrl> 
+       <Keyword>flower</Keyword> 
+       <Impression>15</Impression> 
+       <AlternateText>ad1</AlternateText> 
+ 
+   </Ad> 
+   <Ad> 
+       <ImageUrl>ad2.png</ImageUrl> 
+       <NavigateUrl>https://www.britannica.com/</NavigateUrl> 
+       <Keyword>flower</Keyword> 
+       <Impression>15</Impression> 
+       <AlternateText>ad2</AlternateText> 
+ 
+   </Ad> 
+   <Ad> 
+       <ImageUrl>ad3.png</ImageUrl> 
+       <NavigateUrl>https://www.britannica.com/</NavigateUrl> 
+       <Keyword>flower</Keyword> 
+       <Impression>15</Impression> 
+       <AlternateText>ad3</AlternateText> 
+ 
+   </Ad> 
+ 
+   
+   </Advertisements> 
+
+12
+                                                                                                                                                          
+
+Practical     5 
+
+Q1. Create XML file employees with nodes (eid, ename, edept, salary). Bind the eid and ename to a 
+dropdownlist and the ename should be in the ascending order. 
+
+<?xml version="1.0"  encoding="utf-8"  ?> 
+<employees> 
+   <employee> 
+      <eid>101</eid> 
+      <ename>Amit</ename> 
+      <edept>HR</edept> 
+      <salary>50000</salary> 
+   </employee> 
+   <employee> 
+      <eid>102</eid> 
+      <ename>Cat</ename> 
+      <edept>IT</edept> 
+      <salary>60000</salary> 
+   </employee> 
+   <employee> 
+      <eid>103</eid> 
+      <ename>Deepak</ename> 
+      <edept>Finance</edept> 
+      <salary>55000</salary> 
+   </employee> 
+</employees> 
+
+protected  void Page_Load(object sender, EventArgs e) 
+      { 
+
+13
+             DataSet empds = new DataSet(); 
+             empds.ReadXml(Server.MapPath("") + "\\XMLFile.xml"); 
+             empds.Tables[0].DefaultView.Sort  = "ename"; 
+             DropDownList1.DataSource = empds.Tables[0]; 
+             DropDownList1.DataTextField = "ename"; 
+             DropDownList1.DataValueField = "eid"; 
+             DropDownList1.DataBind(); 
+ 
+      } 
+
+
+
+
+
+
+
+
+
+
+
+
+                                                            
+
+Q2. Create simple web page that takes a number as input and display it four times in a row (separated 
+by blank spaces), and then four times in the next row, with no separation. LikeEnter a digit: 22 Expected 
+Output:  
+
+22 22 22 22  
+
+22222222  
+
+22 22 22 22  
+
+22222222 
+
+protected  void Page_Load(object sender, EventArgs e) 
+      { 
+        
+      } 
+ 
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+      { 
+             Label1.Text  = ""; 
+ 
+             int   a  = Convert.ToInt32(TextBox1.Text); 
+ 
+             for(int     i=1;i<=4;i++) 
+             { 
+                    if(i%2==0) 
+                    { 
+                           //even 
+                           for  (int    j   = 1;  j   <= 4;  j++) 
+                           { 
+                                  Label1.Text += a.ToString(); 
+                           } 
+                           Label1.Text += "<br>"; 
+ 
+                    } 
+
+14
+                  else 
+                  { 
+                         //odd 
+                         for  (int  j   = 1;  j  <= 4; j++) 
+                         { 
+                               Label1.Text += a.ToString() + " "; 
+                         } 
+                 
+                  } 
+                  Label1.Text += "<br>"; 
+            } 
+      } 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                 
+
+Practical    6 
+
+Q1. Create a simple web page to display the Date properties (year, month, day, hour, minute, second, 
+millisecond etc.) as well as to display the number of days of the year between two specified years. 
+
+protected void Button1_Click(object sender, EventArgs e) 
+      { 
+            DateTime date =  DateTime.Now; 
+            Response.Write("Date= "+date + "<br>"); 
+            Response.Write("second= "+date.Second+"<br>"); 
+            Response.Write("Milisecond= " + date.Millisecond + "<br>"); 
+            Response.Write("Minute= " + date.Minute + "<br>"); 
+            Response.Write("Hour= " + date.Hour + "<br>"); 
+            Response.Write("Day= " + date.Date.Day + "<br>"); 
+            Response.Write("Month= " + date.Date.Month + "<br>"); 
+            Response.Write("Year= " + date.Date.Year + "<br>"); 
+            DateTime dt1 = new DateTime(2023, 08, 12); 
+            DateTime dt2 = new DateTime(2022, 08, 12); 
+            TimeSpan ts = dt1 - dt2; 
+            Response.Write("Year of Diffrence: between " +dt1.Year+" " +dt2.Year +"  =" ); 
+            Response.Write(ts.Days / 365); 
+      } 
+
+15
+                                                                                                                   
+
+Q2. Create a web page containing the student details (RollNo, Name, Class, Phone, Email) and show 
+result using Databinding and dropdownlist control. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+using System.Data; 
+public  partial    class  index  :  System.Web.UI.Page 
+{ 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+             DataSet studs =  new DataSet(); 
+             studs.Tables.Add(new DataTable("student")); 
+             studs.Tables["student"].Columns.Add(new DataColumn("rollno")); 
+             studs.Tables["student"].Columns.Add(new DataColumn("name")); 
+             studs.Tables["student"].Columns.Add(new DataColumn("class")); 
+             studs.Tables["student"].Columns.Add(new DataColumn("phone")); 
+             studs.Tables["student"].Columns.Add(new DataColumn("email")); 
+ 
+             DataRow dr = studs.Tables["student"].NewRow(); 
+             dr["rollno"]      = "1"; 
+             dr["name"]  =  "Manish Gupta"; 
+             dr["class"]     = "TYBscIt"; 
+             dr["phone"]   = "7800105170"; 
+             dr["email"]    =  "manishgupta@gmail.com"; 
+             studs.Tables["student"].Rows.Add(dr); 
+
+16
+ 
+               dr  = studs.Tables["student"].NewRow(); 
+             dr["rollno"]      = "2"; 
+             dr[1]   =  "Amit Gupta"; 
+             dr[2]   =  "TYBscIt"; 
+             dr[3]   =  "7800105170"; 
+             dr[4]   =  "amitgupta@gmail.com"; 
+             studs.Tables["student"].Rows.Add(dr); 
+ 
+             dr  = studs.Tables["student"].NewRow(); 
+             dr["rollno"]      = "4"; 
+             dr[1]   =  "Sumit"; 
+             dr[2]   =  "Bcom"; 
+             dr[3]   =  "78788888745"; 
+             dr[4]   =  "sumit@gmail.com"; 
+             studs.Tables["student"].Rows.Add(dr); 
+ 
+             dr  = studs.Tables["student"].NewRow(); 
+             dr["rollno"]      = "3"; 
+             dr["name"]  =  "Deepak"; 
+             dr["class"]     = "TYBscIt"; 
+             dr["phone"]   = "123456789"; 
+             dr["email"]    =  "deepak@gmail.com"; 
+             studs.Tables["student"].Rows.Add(dr); 
+ 
+             GridView1.DataSource = studs.Tables["student"]; 
+             GridView1.DataBind(); 
+ 
+ 
+             DropDownList1.DataSource = studs.Tables["student"]; 
+           DropDownList1.DataTextField = "name"; 
+           DropDownList1.DataValueField = "rollno"; 
+             DropDownList1.DataBind(); 
+      } 
+ 
+ 
+      protected  void  GridView1_SelectedIndexChanged(object sender, EventArgs e) 
+      { 
+ 
+      } 
+} 
+
+17
+                                                                                                                                                      
+
+Practical     7 
+
+Q1. Create a simple web page to demonstrate all string operations. 
+
+protected  void Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+      { 
+             string   input   = TextBox1.Text; 
+             Response.Write("Length="+input.Length+"<br>"); 
+             Response.Write("Lowercase="+input.ToLower() + "<br>"); 
+             Response.Write("UpperCase="+input.ToUpper() + "<br>"); 
+             Response.Write("ToLowerInvariant=" + input.ToLowerInvariant()    + "<br>"); 
+ 
+      } 
+
+18
+                                                                                                                      
+
+Q2. Design an asp.net webpage with 2 groups of Radio Buttons, DropDownList, label and TextBox to 
+perform the following operations:- i). On click of Radio Buttons each at the same time from two 
+different groups, change the font- size and font-face of the label’s Text. ii). Also on the same webpage 
+show that, on selecting a country name from the dropdown list, its respective country code gets 
+displayed in a textbox. 
+
+public  partial    class  index  :  System.Web.UI.Page 
+{ 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  RadioButton2_CheckedChanged(object sender, EventArgs e) 
+      { 
+             if   (RadioButton2.Checked == true) 
+             { 
+                    Label1.Font.Size  = 24; 
+             } 
+      } 
+ 
+      protected  void  RadioButton1_CheckedChanged(object sender, EventArgs e) 
+      { 
+             if(RadioButton1.Checked==true) 
+             { 
+                    Label1.Font.Size  = 20; 
+             } 
+      } 
+ 
+      protected  void  RadioButton3_CheckedChanged(object sender, EventArgs e) 
+      { 
+             if   (RadioButton3.Checked == true) 
+             { 
+                    Label1.Font.Size  = 28; 
+             } 
+      } 
+ 
+      protected  void  DropDownList1_SelectedIndexChanged(object sender, EventArgs e) 
+      { 
+             TextBox1.Text = DropDownList1.SelectedValue; 
+
+19
+      } 
+ 
+      protected void RadioButton4_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton4.Checked == true) 
+            { 
+                  Label1.Font.Name="Arial"; 
+            } 
+      } 
+ 
+      protected void RadioButton5_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton5.Checked == true) 
+            { 
+                  Label1.Font.Name = "Fantasy"; 
+            } 
+      } 
+ 
+      protected void RadioButton6_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton6.Checked == true) 
+            { 
+                  Label1.Font.Name = "Serif"; 
+            } 
+      } 
+ 
+      protected void RadioButton7_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton7.Checked == true) 
+            { 
+                  Label1.ForeColor = System.Drawing.Color.Red; 
+            } 
+      } 
+ 
+      protected void RadioButton8_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton8.Checked == true) 
+            { 
+                  Label1.ForeColor = System.Drawing.Color.Blue; 
+            } 
+      } 
+ 
+      protected void RadioButton9_CheckedChanged(object sender, EventArgs e) 
+      { 
+            if   (RadioButton9.Checked == true) 
+            { 
+                  Label1.ForeColor = System.Drawing.Color.Green; 
+            } 
+      } 
+} 
+
+20
+                                                                                                                                                          
+
+Practical     8 
+
+Q1. Create a delegate del1. Create display1() and display2() static methods. Create a simple application 
+to call these two methods by the through the delegate. 
+
+ 
+
+Q2. Create a simple web page to show how to write and read a cookie from a client's computer. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public  partial    class  _Default  :  System.Web.UI.Page 
+{ 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+      { 
+             HttpCookie ck1 =  new HttpCookie("User1", TextBox2.Text); 
+             Response.Cookies.Add(ck1); 
+      
+      } 
+ 
+      protected  void  Button2_Click(object   sender,  EventArgs e) 
+      { 
+             Label1.Text  = Request.Cookies["User1"].Value; 
+
+21
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                           
+ 
+
+ 
+
+ 
+
+Practical    9  
+
+Q1. Create a web application to demonstrate use of HtmlEditorExtender Ajax control. 
+
+<form id="form1" runat="server"> 
+      <div> 
+     
+      </div> 
+            <asp:ScriptManager ID="ScriptManager1" runat="server"> 
+            </asp:ScriptManager> 
+            <asp:TextBox ID="TextBox1" runat="server" Height="414px" TextMode="MultiLine" 
+Width="935px" OnTextChanged="TextBox1_TextChanged"></asp:TextBox> 
+            <ajaxToolkit:HtmlEditorExtender  EnableSanitization="false" 
+ID="TextBox1_HtmlEditorExtender" runat="server" TargetControlID="TextBox1"> 
+            </ajaxToolkit:HtmlEditorExtender> 
+      </form> 
+
+ 
+
+ 
+
+22
+                                                                                                                                                          
+
+Q2. Create a web application to demonstrate use of Master Page with applying Styles and Themes for 
+page beautification. 
+
+<form id="form1"  runat="server"> 
+             <table  class="auto-style1"> 
+                    <tr> 
+                           <td  class="auto-style4"> 
+                                  <asp:Image ID="Image1" runat="server" Height="121px" 
+ImageUrl="~/asset/clogo.png" Width="156px" /> 
+                           </td> 
+                           <td  class="auto-style3"> 
+                                  <asp:Label ID="Label1" runat="server"   BackColor="Blue" Font-
+Bold="True" Font-Italic="True"    Font-Size="XX-Large" ForeColor="White" Text="Lala Lajpat 
+rai  commerce and economics college Mumbai"></asp:Label> 
+                           </td> 
+                    </tr> 
+                    <tr> 
+                           <td  class="auto-style5">&nbsp; 
+                                  <br /> 
+                                  <br /> 
+                    
+                                  <asp:Menu ID="Menu1" runat="server" BackColor="#FFFBD6" 
+DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="Medium" ForeColor="#990000" 
+Height="100px" StaticSubMenuIndent="10px"> 
+                                         <DynamicHoverStyle BackColor="#990000" ForeColor="White" /> 
+                                         <DynamicMenuItemStyle HorizontalPadding="5px" 
+VerticalPadding="2px" /> 
+                                         <DynamicMenuStyle BackColor="#FFFBD6" /> 
+                                         <DynamicSelectedStyle BackColor="#FFCC66" /> 
+                                         <Items> 
+                                               <asp:MenuItem NavigateUrl="~/Home.aspx" Text="Home" 
+Value="Home"></asp:MenuItem> 
+
+23
+                                               <asp:MenuItem NavigateUrl="~/About.aspx" Text="About" 
+Value="About"></asp:MenuItem> 
+                                               <asp:MenuItem NavigateUrl="~/contact.aspx" Text="Contact us" 
+Value="Contact us"></asp:MenuItem> 
+                                               <asp:MenuItem Text="HelpDesk" Value="HelpDesk" 
+NavigateUrl="~/Help.aspx"></asp:MenuItem> 
+                                         </Items> 
+                                         <StaticHoverStyle  BackColor="#990000" ForeColor="White" /> 
+                                         <StaticMenuItemStyle HorizontalPadding="5px" 
+VerticalPadding="2px" /> 
+                                         <StaticSelectedStyle  BackColor="#FFCC66" /> 
+                                  </asp:Menu> 
+                           </td> 
+                           <td  class="auto-style2"> 
+                                  <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"> 
+                                  </asp:ContentPlaceHolder> 
+                           </td> 
+                    </tr> 
+             </table>
+
+24
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                          
+ 
+
+ 
+
+ 
+
+Practical     10 
+
+ 
+
+Q1. Create a web applications to demonstrate Form Security and Windows Security with proper 
+Authentication and Authorization properties. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                            
+
+25
+                                                                                                      
+
+Practical     11 
+
+Q1. Create a web application to bind data in a multiline textbox by querying in another textbox. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public  partial    class  _11A :  System.Web.UI.Page 
+{ 
+ 
+      public   string   textdata; 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  TextBox2_TextChanged(object sender, EventArgs e) 
+      { 
+             textdata   = TextBox2.Text; 
+             this.DataBind(); 
+      } 
+ 
+
+26
+      protected  void  TextBox1_TextChanged(object sender, EventArgs e) 
+      { 
+ 
+      } 
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                            
+
+Q2. Write a program to create a DLL to print a factorial of a number. 
+
+AllMethod.cs 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+ 
+///   <summary> 
+///   Summary description for  ALlMethod 
+///   </summary> 
+public  class  ALlMethod 
+{ 
+      public   ALlMethod() 
+      { 
+             // 
+             //   TODO: Add constructor logic  here 
+             // 
+
+27
+      
+        
+ 
+      } 
+      public string  fact(int    a) 
+      { 
+            int  fact   = 1; 
+            for  (int   i  = 1;  i  <= a; i++) 
+            { 
+                  fact  = fact  *  i; 
+            } 
+            return  fact.ToString(); 
+      } 
+} 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+using math; 
+ 
+public partial   class _11B_DLL_Factorial : System.Web.UI.Page 
+{ 
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected void Button1_Click(object sender, EventArgs e) 
+      { 
+            ALlMethod all = new ALlMethod(); 
+            TextBox2.Text = all.fact(Convert.ToInt32(TextBox1.Text)); 
+      } 
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                             
+
+Practical    12 
+
+Q1. Write an Application to: i). Generate Fibonacci series ii). Test for prime numbers iii). Test for vowels 
+iv). Reverse a number 
+
+28
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public partial   class _Default :  System.Web.UI.Page 
+{ 
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected void Button1_Click(object sender, EventArgs e) 
+      { 
+            int  n1 = 0,  n2 = 1 ,n3=0; 
+            string  fibo  = ""; 
+            fibo  += n1.ToString() +" ,"+  n2.ToString()+" ,"; 
+            int  input  = Convert.ToInt32(TextBox1.Text); 
+ 
+            for  (int   i  = 0;  i  < input;  i++) 
+            { 
+                  n3 = n1 + n2; 
+                  fibo  += n3.ToString()+" ,"; 
+                  n1 = n2; 
+                  n2 = n3; 
+            } 
+            Label1.Text = fibo; 
+      } 
+ 
+      protected void Button2_Click(object sender, EventArgs e) 
+      { 
+            int  input  = Convert.ToInt32(TextBox2.Text); 
+            string  isprime = "Prime Number"; 
+ 
+            for(int   i=2;i<   input;i++) 
+            { 
+                  if   (input  % i==0) 
+                  { 
+                         isprime = "Not Prime Number"; 
+                         break; 
+                  } 
+ 
+            } 
+            Label2.Text = isprime; 
+      } 
+ 
+      protected void Button3_Click(object sender, EventArgs e) 
+      { 
+ 
+        
+            string  word = TextBox3.Text; 
+         
+            string[]   vowel  = {  "a",  "A",  "e",  "E",  "i",    "I",   "o",  "O",  "u",  "U" }; 
+ 
+            string  Isvowel = "Not Vowel"; 
+ 
+
+29
+            for  (int   i=0;i<vowel.Length;i++) 
+            { 
+                  if   (word == vowel[i]) 
+                  { 
+                         Isvowel = "Vowel"; 
+                         break; 
+                  } 
+ 
+            } 
+            Label3.Text = Isvowel; 
+ 
+      } 
+ 
+ 
+ 
+ 
+ 
+      protected void Button4_Click1(object sender, EventArgs e) 
+      { 
+            int  input  = Convert.ToInt32(TextBox4.Text); 
+ 
+            int  rev  = 0, rem; 
+            while (input  !=  0) 
+            { 
+                  rem = input % 10; 
+                  rev  = rev *  10 + rem; 
+                  input  = input/10; 
+            } 
+            Label4.Text = rev.ToString(); 
+       
+      } 
+} 
+
+
+
+
+
+
+
+                                                                                                                                             
+
+Q2. Create a table with records and retrieve those using Disconnected data access in a Gridview. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+using System.Data.SqlClient; 
+using System.Data; 
+ 
+public partial   class _Default :  System.Web.UI.Page 
+{ 
+      SqlConnection con; 
+      SqlDataAdapter sda; 
+      DataSet ds; 
+
+30
+ 
+      SqlCommandBuilder scb; 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+       
+ 
+      } 
+ 
+   
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+      { 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\manis\OneDrive\Desktop\AWP 
+PRACTICAL\Disconnected Mode\App_Data\Database.mdf;Integrated Security=True"); 
+             sda =  new SqlDataAdapter("select *  from stdtable",    con); 
+             scb =  new SqlCommandBuilder(sda); 
+             ds =  new DataSet(); 
+             sda.Fill(ds); 
+             DataRow dr = ds.Tables[0].NewRow(); 
+             dr["roll"]      =  TextBox4.Text; 
+             dr["name"]  =  TextBox1.Text; 
+             dr["age"]   =  TextBox2.Text; 
+             dr["class"]     = TextBox3.Text; 
+             ds.Tables[0].Rows.Add(dr); 
+             int   i   = sda.Update(ds); 
+             if   (i    == 1) 
+             { 
+                    Label1.Text  = "Record Inserted  Successfully"; 
+             } 
+      } 
+ 
+      protected  void  Button2_Click(object   sender,  EventArgs e) 
+      { 
+             ds =  new DataSet(); 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\manis\OneDrive\Desktop\AWP 
+PRACTICAL\Disconnected Mode\App_Data\Database.mdf;Integrated Security=True"); 
+             sda =  new SqlDataAdapter(new SqlCommand("select * from stdtable",con)); 
+             scb =  new SqlCommandBuilder(sda); 
+             Response.Write(scb.GetInsertCommand().CommandText + "<br>"); 
+             Response.Write(scb.GetUpdateCommand().CommandText + "<br>"); 
+             Response.Write(scb.GetDeleteCommand().CommandText + "<br>"); 
+             sda.Fill(ds,"temp"); 
+             //TextBox1.Text  =  ds.Tables[0].Rows[0][0].ToString(); 
+             //TextBox2.Text  =  ds.Tables[0].Rows[0][1].ToString(); 
+             //TextBox3.Text  =  ds.Tables[0].Rows[0][2].ToString(); 
+             //TextBox4.Text  =  ds.Tables[0].Rows[0][3].ToString(); 
+             GridView1.DataSource = ds.Tables["temp"]; 
+             GridView1.DataBind(); 
+      } 
+ 
+      protected  void  Button3_Click(object   sender,  EventArgs e) 
+      { 
+ 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\manis\OneDrive\Desktop\AWP 
+PRACTICAL\Disconnected Mode\App_Data\Database.mdf;Integrated Security=True"); 
+             sda =  new SqlDataAdapter("Select * from  stdtable",   con); 
+
+31
+             scb =  new SqlCommandBuilder(sda); 
+             ds =  new DataSet(); 
+             sda.Fill(ds); 
+             DataRow dr = ds.Tables[0].Rows[0]; 
+             dr["name"]  =  TextBox1.Text; 
+             dr["age"]   =  TextBox2.Text; 
+             dr["class"]     = TextBox3.Text; 
+             int   i   = sda.Update(ds); 
+             if   (i    == 1) 
+             { 
+                    Label1.Text  = "Record Updated Successfully"; 
+             } 
+      } 
+ 
+ 
+    
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                          
+
+Practical     13 
+
+Q1. Create a simple web page to demonstrate use of built in DivideByZeroException and 
+IndexOutOfRangeException exceptions using textbox and label control. 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public  partial    class  _Default  :  System.Web.UI.Page 
+{ 
+      protected  void  Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected  void  Button1_Click(object   sender,  EventArgs e) 
+
+32
+      { 
+            try 
+            { 
+                  int   n1 = Convert.ToInt32(TextBox1.Text); 
+                  int   n2 = Convert.ToInt32(TextBox2.Text); 
+                  int   result  = n1 /  n2; 
+            
+                  Label1.Text = result.ToString(); 
+                  string[]    arr = new string[3]; 
+                  arr[0]   = "a"; 
+                  arr[1]   = "b"; 
+                  arr[2]   = "c"; 
+                  arr[3]   = "d"; 
+            } 
+            catch (DivideByZeroException d) 
+            { 
+                  Response.Write(d.ToString()); 
+            } 
+            catch (IndexOutOfRangeException i) 
+            { 
+                  Response.Write(i.ToString()); 
+            } 
+      } 
+} 
+
+
+
+
+
+
+                                                                                                                                             
+
+Q2. Create a simple web page to show data in Tree view control and datalist using web. Sitemap file 
+containing navigation information. 
+
+<?xml version="1.0" encoding="utf-8" ?> 
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" > 
+      <siteMapNode url="google.com" title="google"  description="google"> 
+         <siteMapNode url="google1.com" title="google"  description="google"> 
+            <siteMapNode url="cricbuzz.com" title="cricket"  description="cricket" /> 
+            <siteMapNode url="sportsnews.com" title="sport news"  description="sport news" /> 
+      </siteMapNode> 
+   <siteMapNode url="google2.com" title="google"  description="google"> 
+      <siteMapNode url="cricbuzz1.com" title="cricket"  description="cricket" /> 
+      <siteMapNode url="sportsnews1.com" title="sport news"  description="sport news" /> 
+   </siteMapNode> 
+   </siteMapNode> 
+</siteMap> 
+ 
+
+33
+                                                                                                                                                          
+
+Practical     14 
+
+Q1. Display the no. of visitors on a given web page. 
+
+<%@ Application Language="C#" %> 
+ 
+<script  runat="server"> 
+ 
+      void  Application_Start(object     sender,  EventArgs e) 
+      { 
+             //   Code that  runs on application    startup 
+             Application["visitor"]=0; 
+ 
+      } 
+ 
+      void  Application_End(object   sender, EventArgs e) 
+      { 
+             //     Code that runs  on application   shutdown 
+ 
+      } 
+ 
+      void  Application_Error(object     sender, EventArgs e) 
+      { 
+             //   Code that  runs when an unhandled error occurs 
+ 
+      } 
+ 
+      void  Session_Start(object   sender,  EventArgs e) 
+      { 
+             //   Code that  runs when a new session is  started 
+             int   counter  = Convert.ToInt32(Application["visitor"])         + 1; 
+             Application["visitor"]        = counter; 
+ 
+      } 
+ 
+      void  Session_End(object sender, EventArgs e) 
+      { 
+             //   Code that  runs when a session ends.  
+             //   Note:  The Session_End event is raised  only  when the sessionstate  mode 
+
+34
+            //   is  set to  InProc in the  Web.config file.  If  session mode is set to StateServer  
+            //   or SQLServer, the event is not raised. 
+ 
+      } 
+ 
+</script> 
+ 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public partial   class _14A : System.Web.UI.Page 
+{ 
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+       
+      } 
+ 
+      protected void Button1_Click(object sender, EventArgs e) 
+      { 
+       
+ 
+      } 
+ 
+      protected void Button2_Click(object sender, EventArgs e) 
+      { 
+         
+            Label1.Text = "visitor  count is  :"   + Application["visitor"].ToString(); 
+ 
+      } 
+} 
+
+Q2. Create a registration form having text fields for accepting, Name, Age, Email, Address and Mobile 
+number. Perform the following validations for the same:  
+
+i). All fields need to be filled compulsorily 
+
+ ii). Name should contain only alphabets and should not be more than 25 characters long 
+
+ iii). Validate email and mobile number appropriately  
+
+iv). Age should be between 18 and 32 only. Include submit and cancel buttons. On click of submit 
+button, open a new page and display all the information entered by the user and on click of cancel 
+button, all text fields should be cleared. 
+
+.aspx 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+
+35
+using System.Web.UI.WebControls; 
+ 
+public partial   class _14B_Validation : System.Web.UI.Page 
+{ 
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+ 
+      } 
+ 
+      protected void Button1_Click(object sender, EventArgs e) 
+      { 
+            Response.Redirect("pag1.aspx?name=" + TextBox1.Text + "&age=" + TextBox2.Text + 
+"&email=" + TextBox3.Text + "&address=" + TextBox4.Text + "&mobile=" + TextBox5.Text); 
+      } 
+ 
+      protected void Button2_Click(object sender, EventArgs e) 
+      { 
+            TextBox1.Text=" "; 
+            TextBox2.Text = " "; 
+            TextBox3.Text = " "; 
+            TextBox4.Text = " "; 
+            TextBox5.Text = " "; 
+         
+      } 
+} 
+
+Page1.aspx 
+
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+public partial   class pag1 : System.Web.UI.Page 
+{ 
+      protected void Page_Load(object sender, EventArgs e) 
+      { 
+            String  name = Request.QueryString["name"]; 
+            String  age = Request.QueryString["age"]; 
+            String  email = Request.QueryString["email"]; 
+            String  address = Request.QueryString["address"]; 
+            String  mobile = Request.QueryString["mobile"]; 
+            Response.Write(name + "<br>"); 
+            Response.Write(age + "<br>"); 
+            Response.Write(email + "<br>"); 
+            Response.Write(address + "<br>"); 
+            Response.Write(mobile + "<br>"); 
+      } 
+} 
+
+ 
+
+ 
+
+ 
+
+36
+            4 
+
+             
+
+             
+
+             
+
+             
+
+             
+
+            Practical  15 
+
+ Q1. Create a webpage with multiline textbox and two buttons, viz. saveContents and loadContents. On click of 
+saveContents button, contents from the textbox should be retained and on click of loadContents button, the 
+previously saved contents should be displayed back on the textbox. 
+
+            using System; 
+            using System.Collections.Generic; 
+            using System.Linq; 
+            using System.Web; 
+            using System.Web.UI; 
+            using System.Web.UI.WebControls; 
+             
+            public partial   class _15_A_ : System.Web.UI.Page 
+            { 
+                  protected void Page_Load(object sender, EventArgs e) 
+                  { 
+             
+                  } 
+             
+                  protected void Button1_Click(object sender, EventArgs e) 
+                  { 
+                        ViewState["data"]=TextBox1.Text; 
+                        TextBox1.Text = ""; 
+             
+                  } 
+             
+                  protected void Button2_Click(object sender, EventArgs e) 
+                  { 
+                        TextBox1.Text = ViewState["data"].ToString() ; 
+                  } 
+       } 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+37
+Q2. Store 3 objects of the furniture class having 3 data members (name, manufacturer, and cost) in 3 session 
+objects. Display a panel to include a listbox displaying the names of all three furniture objects, and a button named 
+“MoreInformation”. On click of the button retrieve the selected object (from listbox) information and display it in 
+a label. 
+
+             using System; 
+             using System.Collections.Generic; 
+             using System.Linq; 
+             using System.Web; 
+             using System.Web.UI; 
+             using System.Web.UI.WebControls; 
+              
+             public  partial    class  _15B :  System.Web.UI.Page 
+             { 
+                    protected  void  Page_Load(object sender, EventArgs e) 
+                    { 
+                          if(!IsPostBack) 
+                          { 
+                                 Session["s1"]   = new Furniture("chair1",     "xyz1",   "1001"); 
+                                 Session["s2"]   = new Furniture("chair2",     "xyz2",   "1002"); 
+                                 Session["s3"]   = new Furniture("chair3",     "xyz3",   "1003"); 
+              
+                                 ListBox1.Items.Add(((Furniture)Session["s1"]).name); 
+                                 ListBox1.Items.Add(((Furniture)Session["s2"]).name); 
+                                 ListBox1.Items.Add(((Furniture)Session["s3"]).name); 
+                          } 
+                    } 
+              
+                    protected  void  Button1_Click(object   sender, EventArgs e) 
+                    { 
+                          if(ListBox1.SelectedIndex!=-1) 
+                          { 
+                                 if(ListBox1.SelectedIndex==0) 
+                                 { 
+                                        Label1.Text  = ((Furniture)Session["s1"]).mani; 
+                                        Label2.Text  = ((Furniture)Session["s1"]).cost; 
+                                 } 
+                                else  if   (ListBox1.SelectedIndex  == 1) 
+                                 { 
+                                        Label1.Text  = ((Furniture)Session["s2"]).mani; 
+                                        Label2.Text  = ((Furniture)Session["s3"]).cost; 
+                                 } 
+                                 else  if    (ListBox1.SelectedIndex  == 2) 
+                                 { 
+                                        Label1.Text  = ((Furniture)Session["s3"]).mani; 
+                                        Label2.Text  = ((Furniture)Session["s3"]).cost; 
+                                 } 
+                          } 
+                    } 
+             } 
+              
+             class  Furniture 
+             { 
+                    public  string   name; 
+                    public  string   mani; 
+                    public  string   cost; 
+                    public  Furniture(string     name,string  mani,string  cost) 
+
+38
+                    { 
+                          this.name  = name; 
+                          this.mani   = mani; 
+                          this.cost    =  cost; 
+                    } 
+} 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Practical     16  
+
+Q1. Write a program in C# to demonstrate multiple inheritance using interfaces. 
+
+             using System; 
+             using System.Collections.Generic; 
+             using System.Linq; 
+             using System.Web; 
+             using System.Web.UI; 
+             using System.Web.UI.WebControls; 
+              
+             public  partial    class  _16_A_inheritance :  System.Web.UI.Page 
+             { 
+                    protected  void  Page_Load(object sender, EventArgs e) 
+                    { 
+                          EnginePart1 e1 =  new Engine(); 
+                          EnginePart2 e2 =  new Engine(); 
+                          Response.Write(e1.Color("red")   + "<br>"); 
+                          Response.Write(e2.Gear("5 gear")  + "<br>"); 
+                          Engine en =  new Engine(); 
+                          Response.Write(en.Gear("5 gear")+"<br>"); 
+                          Response.Write(en.Color("red")); 
+                    } 
+             } 
+              
+             class  Engine: EnginePart1,  EnginePart2 
+             { 
+                    public  string   Color(string    col) 
+                    { 
+                          return   col; 
+                    } 
+                    public  string   Gear(string   gear) 
+                    { 
+                          return   gear; 
+                    } 
+
+39
+            } 
+            interface  EnginePart1 
+            { 
+                  string  Color(string  col); 
+            } 
+            interface  EnginePart2 
+            { 
+                  string  Gear(string gear); 
+} 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                             
+
+Q2. Create a table with records and retrieve those using Disconnected data access in a Gridview. 
+
+            Q2. Create a table with records and retrieve those using Disconnected data access in a Gridview. 
+
+            using System; 
+            using System.Collections.Generic; 
+            using System.Linq; 
+            using System.Web; 
+            using System.Web.UI; 
+            using System.Web.UI.WebControls; 
+            using System.Data.SqlClient; 
+            using System.Data; 
+             
+            public partial   class _Default :  System.Web.UI.Page 
+            { 
+                  SqlConnection con; 
+                  SqlDataAdapter sda; 
+                  DataSet ds; 
+             
+                  SqlCommandBuilder scb; 
+                  protected void Page_Load(object sender, EventArgs e) 
+                  { 
+                   
+             
+                  } 
+             
+               
+                  protected void Button1_Click(object sender, EventArgs e) 
+                  { 
+                        con = new SqlConnection(@"Data 
+            Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\manis\OneDrive\Desktop\AWP 
+            PRACTICAL\Disconnected Mode\App_Data\Database.mdf;Integrated Security=True"); 
+                        sda = new SqlDataAdapter("select * from stdtable", con); 
+
+40
+             scb =  new SqlCommandBuilder(sda); 
+             ds =  new DataSet(); 
+             sda.Fill(ds); 
+             DataRow dr = ds.Tables[0].NewRow(); 
+             dr["roll"]      =  TextBox4.Text; 
+             dr["name"]  =  TextBox1.Text; 
+             dr["age"]   =  TextBox2.Text; 
+             dr["class"]     = TextBox3.Text; 
+             ds.Tables[0].Rows.Add(dr); 
+             int   i   = sda.Update(ds); 
+             if   (i    == 1) 
+             { 
+                    Label1.Text  = "Record Inserted  Successfully"; 
+             } 
+      } 
+ 
+      protected  void  Button2_Click(object   sender,  EventArgs e) 
+      { 
+             ds =  new DataSet(); 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\manis\OneDrive\Desktop\AWP 
+PRACTICAL\Disconnected Mode\App_Data\Database.mdf;Integrated Security=True"); 
+             sda =  new SqlDataAdapter(new SqlCommand("select * from stdtable",con)); 
+             scb =  new SqlCommandBuilder(sda); 
+             Response.Write(scb.GetInsertCommand().CommandText + "<br>"); 
+             Response.Write(scb.GetUpdateCommand().CommandText + "<br>"); 
+             Response.Write(scb.GetDeleteCommand().CommandText + "<br>"); 
+             sda.Fill(ds,"temp"); 
+             //TextBox1.Text  =  ds.Tables[0].Rows[0][0].ToString(); 
+             //TextBox2.Text  =  ds.Tables[0].Rows[0][1].ToString(); 
+             //TextBox3.Text  =  ds.Tables[0].Rows[0][2].ToString(); 
+             //TextBox4.Text  =  ds.Tables[0].Rows[0][3].ToString(); 
+             GridView1.DataSource = ds.Tables["temp"]; 
+             GridView1.DataBind(); 
+      } 
+ 
+      protected  void  Button3_Click(object   sender,  EventArgs e) 
+      { 
+ 
+             con =  new SqlConnection(@"Data 
+Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\manis\OneDrive\Desktop\AWP 
+PRACTICAL\Disconnected Mode\App_Data\Database.mdf;Integrated Security=True"); 
+             sda =  new SqlDataAdapter("Select * from  stdtable",   con); 
+             scb =  new SqlCommandBuilder(sda); 
+             ds =  new DataSet(); 
+             sda.Fill(ds); 
+             DataRow dr = ds.Tables[0].Rows[0]; 
+             dr["name"]  =  TextBox1.Text; 
+             dr["age"]   =  TextBox2.Text; 
+             dr["class"]     = TextBox3.Text; 
+             int   i   = sda.Update(ds); 
+             if   (i    == 1) 
+             { 
+                    Label1.Text  = "Record Updated Successfully"; 
+             } 
+      } 
+ 
+ 
+
+41
+               
+           } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                             
+
+ 
+
+ 
+
